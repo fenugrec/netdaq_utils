@@ -1,0 +1,58 @@
+base_offset,regname,width,comment
+802,CMR,16,IDMA Channel Mode Register
+804,SAPR,32,IDMA Source Address Pointer
+808,DAPR,32,IDMA Destination Address Pointer
+80C,BCR,16,IDMA Byte Count Register
+80E,CSR,8,IDMA Channel Status Register
+810,FCR,8,IDMA Function Code Register
+812,GIMR,16,Int Cont Global Interrupt Mode Register
+814,IPR,16,Int Cont Interrupt Pending Register
+816,IMR,16,Int Cont Interrupt Mask Register
+818,ISR,16,Int Cont In-Service Register
+81E,PACNT,16,PIO Port A Control Register
+820,PADDR,16,PIO Port A Data Direction Register
+822,PADAT,16,PIO Port A Data Register
+824,PBCNT,16,PIO Port B Control Register
+826,PBDDR,16,PIO Port B Data Direction Register
+830,BR0,16,CS0 base Register 0
+832,OR0,16,CS0 Option Register 0
+834,BR1,16,CS1 base Register 1
+836,OR1,16,CS1 Option Register 1
+838,BR2,16,CS2 base Register 2
+83A,OR2,16,CS2 Option Register 2
+83C,BR3,16,CS3 base Register 3
+83E,OR3,16,CS3 Option Register 3
+840,TMR1,16,Timer Unit 1 Mode Register
+842,TRR1,16,Timer Unit 1 Reference Register
+844,TCR1,16,Timer Unit 1 Capture Register
+846,TCN1,16,Timer Unit 1 Counter
+849,TER1,8,Timer Unit 1 Event Register
+84A,WRR,16,WD Watchdog Reference Register
+84C,WCN,16,WD Watchdog Counter
+850,TMR2,16,Timer Unit 2 Mode Register
+852,TRR2,16,Timer Unit 2 Reference Register
+854,TCR2,16,Timer Unit 2 Capture Register
+856,TCN2,16,Timer Unit 2 Counter
+859,TER2,8,Timer Unit 2 Event Register
+860,CR,8,CP Command Register
+882,SCON1,16,SCC1 Configuration Register
+884,SCM1,16,SCC1 Mode Register
+886,DSR1,16,SCC1 Data Sync. Register
+888,SCCE1,8,SCC1 Event Register
+88A,SCCM1,8,SCC1 Mask Register
+88C,SCCS1,8,SCC1 Status Register
+892,SCON2,16,SCC2 Configuration Register
+894,SCM2,16,SCC2 Mode Register
+896,DSR2,16,SCC2 Data Sync. Register
+898,SCCE2,8,SCC2 Event Register
+89A,SCCM2,8,SCC2 Mask Register
+89C,SCCS2,8,SCC2 Status Register
+8A2,SCON3,16,SCC3 Configuration Register
+8A4,SCM3,16,SCC3 Mode Register
+8A6,DSR3,16,SCC3 Data Sync. Register
+8A8,SCCE3,8,SCC3 Event Register
+8AA,SCCM3,8,SCC3 Mask Register
+8AC,SCCS3,8,SCC3 Status Register
+8B0,SPMODE,16,SCM Control Register 
+8B2,SIMASK,16,SI Serial Interface Mask Register
+8B4,SIMODE,16,SI Serial Interface Mode Register
