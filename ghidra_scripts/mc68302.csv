@@ -65,6 +65,7 @@ base_offset,regname,width,comment
 822,PADAT,16,PIO Port A Data Register
 824,PBCNT,16,PIO Port B Control Register
 826,PBDDR,16,PIO Port B Data Direction Register
+828,PBDAT,16,PIO Port B Data Register
 830,BR0,16,CS0 base Register 0
 832,OR0,16,CS0 Option Register 0
 834,BR1,16,CS1 base Register 1
