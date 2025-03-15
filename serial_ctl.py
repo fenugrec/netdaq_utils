@@ -45,7 +45,7 @@ def get_cal_const(ser, id):
     # this value was produced from a 32-bit float. Try to recover original binary value
     bval = struct.pack('f', fval)
     if wait_prompt(ser):
-        print(f"got {fval}, {bval}")
+#        print(f"got {fval}, {bval}")
         return (fval, bval)
 
 
@@ -60,4 +60,4 @@ with serial.Serial(port, 19200, timeout=3) as ser:
     print(f"connected to: {ver}")
     for a in range(0,61,2):
         (f, b) = get_cal_const(ser, a)
-        print(f"const {a}: {f} (raw data possibly {int.from_bytes(b):08X}")
+        print(f"const {a}:{f}\t(raw data possibly {int.from_bytes(b):08X})")
