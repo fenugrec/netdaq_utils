@@ -53,7 +53,7 @@ def dump_cal(ser):
 
 
 def reboot(ser):
-    ser.write("autarch;reboot\n")
+    ser.write(b"autarch;reboot\n")
 
 
 def main():
@@ -64,6 +64,7 @@ def main():
     args = parser.parse_args()
 
     port=args.port
+    action=args.action
     calfile=args.output
 
     with serial.Serial(port, 19200, timeout=3) as ser:
