@@ -43,7 +43,7 @@ def get_cal_const(ser, id):
 #    print(f"got string: {r}")
     fval = float(r)
     # this value was produced from a 32-bit float. Try to recover original binary value
-    bval = struct.pack('f', fval)
+    bval = struct.pack('>f', fval)
     if wait_prompt(ser):
 #        print(f"got {fval}, {bval}")
         return (fval, bval)
