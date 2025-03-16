@@ -1,6 +1,6 @@
 #
 # funcs to interact with fluke 2640/2645 over serial port.
-# Note, they don't expose any logging functionality on this port, only 'admin'
+# Note, these do not expose any logging functionality on this port, only 'admin'
 # functions like calibration and low level information.
 #
 # This needs pyserial
@@ -48,16 +48,30 @@ def get_cal_const(ser, id):
 #        print(f"got {fval}, {bval}")
         return (fval, bval)
 
-
-with serial.Serial(port, 19200, timeout=3) as ser:
-    # this IOwrapper garbage doesn't work
-#    sio = io.TextIOWrapper(io.BufferedRWPair(ser, ser))
-#    sio.write("*IDN?\n")
-#    sio.flush()
-    ser.write(b"*IDN?\n")
-    ver = ser.readline().rstrip(b'\r\n')
-    wait_prompt(ser)
-    print(f"connected to: {ver}")
+def dump_cal(ser):
+    print("******* WARNING *******\n"
+          "The firwmare only gives us a decimal string representation of the 32-bit float constants;\n"
+          "we try to recover the original raw data but it is a lossy process due to rounding.\n"
+          "Actual raw data may be different by a few LSbits. AFAIK there is no way to\n"
+          "retrieve the raw data via RS232.")
     for a in range(0,61,2):
         (f, b) = get_cal_const(ser, a)
         print(f"const {a}:{f}\t(raw data possibly {int.from_bytes(b):08X})")
+
+
+def reboot(ser):
+    ser.write("autarch;reboot\n")
+    wait_prompt(ser)
+
+
+def main():
+    with serial.Serial(port, 19200, timeout=3) as ser:
+# this IOwrapper garbage doesn't work
+#    sio = io.TextIOWrapper(io.BufferedRWPair(ser, ser))
+#    sio.write("*IDN?\n")
+#    sio.flush()
+        ser.write(b"*IDN?\n")
+        ver = ser.readline().rstrip(b'\r\n')
+        wait_prompt(ser)
+        print(f"connected to: {ver}")
+        dump_cal(ser)
