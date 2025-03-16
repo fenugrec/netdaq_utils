@@ -1,23 +1,16 @@
-#
+#!/usr/bin/env python3
+
 # funcs to interact with fluke 2640/2645 over serial port.
 # Note, these do not expose any logging functionality on this port, only 'admin'
 # functions like calibration and low level information.
 #
 # This needs pyserial
 
-import sys
 import argparse
 import serial
 import io
 import struct
 
-parser = argparse.ArgumentParser(description="Fluke NetDAQ 2640/2645 serial control tool")
-parser.add_argument('-p', '--port', required=True, help='serial port name e.g. /dev/ttyUSB0')
-parser.add_argument('-o', '--output', type=argparse.FileType('w'), help='Output file for cal constants')
-args = parser.parse_args(sys.argv[1:])
-
-port=args.port
-calfile=args.output
 
 def wait_prompt(ser):
     p = ser.readline().rstrip(b'\r\n')  #purge prompt
@@ -65,6 +58,15 @@ def reboot(ser):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Fluke NetDAQ 2640/2645 serial control tool")
+    parser.add_argument('action', choices=['d','r'], help='[d]ump cal, or [r]eboot')
+    parser.add_argument('-p', '--port', required=True, help='serial port name e.g. /dev/ttyUSB0')
+    parser.add_argument('-o', '--output', type=argparse.FileType('w'), help='Output file for cal constants')
+    args = parser.parse_args()
+
+    port=args.port
+    calfile=args.output
+
     with serial.Serial(port, 19200, timeout=3) as ser:
 # this IOwrapper garbage doesn't work
 #    sio = io.TextIOWrapper(io.BufferedRWPair(ser, ser))
@@ -74,4 +76,12 @@ def main():
         ver = ser.readline().rstrip(b'\r\n')
         wait_prompt(ser)
         print(f"connected to: {ver}")
-        dump_cal(ser)
+        if action=='r':
+            reboot(ser)
+            return
+        elif action=='d':
+            dump_cal(ser)
+
+if __name__ == '__main__':
+        main()
+
