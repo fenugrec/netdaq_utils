@@ -54,7 +54,6 @@ def dump_cal(ser):
 
 def reboot(ser):
     ser.write("autarch;reboot\n")
-    wait_prompt(ser)
 
 
 def main():
