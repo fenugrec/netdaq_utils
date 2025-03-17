@@ -48,7 +48,7 @@ base_offset,regname,width,comment
 66A,SCC2_RxBD,16,
 66C,SCC2_TxBD,16,
 67A,SCP_TxRx,16,
-67C,SCCx_BERR,16,SCC1–SCC3 BERR Channel Number
+67C,SCCx_BERR,16,SCC1-SCC3 BERR Channel Number
 67E,IDCODE,16,CP MC68302 Revision Number
 802,CMR,16,IDMA Channel Mode Register
 804,SAPR,32,IDMA Source Address Pointer
