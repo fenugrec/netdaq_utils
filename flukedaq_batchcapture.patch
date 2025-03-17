@@ -1,0 +1,18 @@
+diff --git a/romdumper_helper/batchcapture.py b/romdumper_helper/batchcapture.py
+index f2cc4ea..24bc5d4 100644
+--- a/romdumper_helper/batchcapture.py
++++ b/romdumper_helper/batchcapture.py
+@@ -74,9 +74,12 @@ import itertools
+ import time
+ 
+ 
++import os
++
+ # modify this func if automated reset is possible
+ def target_reset():
+-    print("reset target now.")
++    print("resetting target now.")
++    os.system('python serial_ctl.py -p /dev/ttyUSB0 r')
+     return
+ 
+ # retrieve current color settings. color 'number' is from 1 to 7
