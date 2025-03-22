@@ -10,6 +10,7 @@ import argparse
 import serial
 import io
 import struct
+import collections
 
 
 def wait_prompt(ser):
@@ -19,6 +20,45 @@ def wait_prompt(ser):
         #print("reply OK")
         return 1
     return 0
+
+
+cal_entry = collections.namedtuple('cal_entry', 'id func name')
+cal_tbl = [
+    cal_entry(0,"VDC","90 mV Gain"),
+    cal_entry(2,"VDC","90 mV Offset"),
+    cal_entry(4,"VDC","300 mV Gain"),
+    cal_entry(6,"VDC","300 mV Offset"),
+    cal_entry(8,"VDC","3V Gain"),
+    cal_entry(10,"VDC","3V Offset"),
+    cal_entry(12,"VDC","30V Gain"),
+    cal_entry(14,"VDC","30V Offset"),
+    cal_entry(16,"VDC","50V/150/300V Gain"),
+    cal_entry(18,"VDC","50V/150/300V Offset"),
+    cal_entry(20,"VDC","750 mV Gain"),
+    cal_entry(22,"VDC","750 mV Offset"),
+    cal_entry(24,"VAC","300 mV Gain"),
+    cal_entry(26,"VAC","300 mV Offset"),
+    cal_entry(28,"VAC","3V Gain"),
+    cal_entry(30,"VAC","3V Offset"),
+    cal_entry(32,"VAC","30V Gain"),
+    cal_entry(34,"VAC","30V Offset"),
+    cal_entry(36,"VAC","150/300 V (2640A)"),
+    cal_entry(38,"VAC","150/300 V (2640A)"),
+    cal_entry(40,"Res","300Ω Gain"),
+    cal_entry(42,"Res","300Ω Offset"),
+    cal_entry(44,"Res","3 kΩ Gain"),
+    cal_entry(46,"Res","3 kΩ Offset"),
+    cal_entry(48,"Res","30 kΩ Gain"),
+    cal_entry(50,"Res","30 kΩ Offset"),
+    cal_entry(52,"Res","300 kΩ Gain"),
+    cal_entry(54,"Res","300 kΩ Offset"),
+    cal_entry(56,"Res","3 MΩ Gain"),
+    cal_entry(58,"Res","3 MΩ Offset"),
+    cal_entry(60,"Freq","CFC"),
+]
+
+# semi-gross : convert into a dict so we can use the cal_id as Key
+cald={x.id:x for x in cal_tbl}
 
 
 def get_cal_const(ser, id):
@@ -49,7 +89,8 @@ def dump_cal(ser):
           "retrieve the raw data via RS232.")
     for a in range(0,61,2):
         (f, b) = get_cal_const(ser, a)
-        print(f"const {a}:{f}\t(raw data possibly {int.from_bytes(b):08X})")
+        c=cald[a]
+        print(f"const {a:02}:{f:< 10}\t{c.func}\t{c.name:25}\t(raw data possibly {int.from_bytes(b):08X})")
 
 
 def reboot(ser):
